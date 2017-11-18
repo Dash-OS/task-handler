@@ -150,23 +150,23 @@ class TaskHandler {
     id: TaskID,
     delay: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef
 
-  defer(id: TaskID, fn: CallbackFn, ...args: Array<any>): CallbackRef
+  defer(id: TaskID, fn: CallbackFn, ...args: Array<*>): CallbackRef
 
   every(
     id: TaskID,
     interval: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef
 
   everyNow(
     id: TaskID,
     interval: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef
 
   // cancel the given timeout (optionally provide a type if it should only

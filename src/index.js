@@ -19,7 +19,7 @@ type TaskTypes =
   | 'defer'
   | 'defers';
 
-type WhileConditionFn = (ref: CallbackRef, ...args: Array<*>) => boolean;
+type WhileConditionFn = (ref: CallbackRef, ...args: Array<any>) => boolean;
 
 type CallbackRefShape = {
   task?: TaskHandler,
@@ -202,7 +202,7 @@ class TaskHandler {
     id: TaskID,
     delay: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef => {
     const ref: CallbackRef = registerRef(this, id);
     this.types.timeouts.set(
@@ -212,7 +212,7 @@ class TaskHandler {
     return ref;
   };
 
-  defer = (id: TaskID, fn: CallbackFn, ...args: Array<any>): CallbackRef => {
+  defer = (id: TaskID, fn: CallbackFn, ...args: Array<*>): CallbackRef => {
     const ref: CallbackRef = registerRef(this, id, {
       cancel: () => this.cancelDefer(id),
     });
@@ -227,7 +227,7 @@ class TaskHandler {
     id: TaskID,
     interval: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef => {
     const ref: CallbackRef = registerRef(this, id);
     this.types.intervals.set(
@@ -241,7 +241,7 @@ class TaskHandler {
     id: TaskID,
     interval: number,
     fn: CallbackFn,
-    ...args: Array<any>
+    ...args: Array<*>
   ): CallbackRef => {
     const deferralID = `${id}:defer:${Date.now()}`;
     const deferRef: CallbackRef = this.defer(deferralID, fn, ...args);
