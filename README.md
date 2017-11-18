@@ -105,11 +105,9 @@ While this is a simple example and is not hard to read, it can be made more
 concise by separating the pieces with a `While Condition`.
 
 ```js
-this.taskman
-  .after('handshake', HANDSHAKE_TIMEOUT_MS, () =>
-    disconnect(403, 'Failed to Authenticate: Handshake Failure'),
-  )
-  .while(() => !state.handshaked);
+task.after('handshake', HANDSHAKE_TIMEOUT_MS, () =>
+  disconnect(403, 'Failed to Authenticate: Handshake Failure'),
+).while(() => !state.handshaked);
 ```
 
 These can be especially helpful with `every` and `defer` timers. While also is
