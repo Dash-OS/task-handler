@@ -33,7 +33,9 @@ type CallbackRef = {
   +id: TaskID,
   +cancel: TaskCancelFunction,
   +while: (condition: WhileConditionFn) => void,
+  +promise: () => Promise<*>,
   _while?: [mixed, WhileConditionFn],
+  _promise?: void | [(result: Promise<*> | *) => void, (error: any) => void],
 };
 
 // type TaskTimeoutFunction = (ref: CallbackRef, ...args: Array<*>) => mixed | any;
@@ -60,8 +62,15 @@ function executeDefer(handler) {
     try {
       executeCallback(handler, 'defer', fn, ref, args);
     } catch (e) {
-      // Catch is currently impossible to cover by Flow :(
-      console.error('[TaskHandler]: Execute Defer Error: ', e);
+      if (Array.isArray(ref._promise)) {
+        if (typeof e === 'object') {
+          e.ref = ref;
+        }
+        ref._promise[1](e);
+      } else {
+        // Catch is currently impossible to cover by Flow :(
+        console.error('[TaskHandler]: Execute Defer Error: ', e);
+      }
     }
   });
 }
@@ -117,6 +126,10 @@ function registerRef(
       refShape.while ||
       ((condition: WhileConditionFn, grouped?: false) =>
         registerWhile(handler, ref, condition, grouped)),
+    promise: () =>
+      new Promise((resolve, reject) => {
+        ref._promise = [resolve, reject];
+      }),
   };
   handler.taskRefs.set(id, ref);
   return ref;
@@ -145,7 +158,11 @@ function executeCallback(
     if (type === 'timeouts') {
       ref.cancel();
     }
-    fn(ref, ...args);
+    if (Array.isArray(ref._promise)) {
+      ref._promise[0](fn(ref, ...args));
+    } else {
+      fn(ref, ...args);
+    }
   }
 }
 
