@@ -103,7 +103,7 @@ type CallbackRef = {|
   +id: TaskID,
   +cancel: TaskCancelFunction,
   +while: (condition: WhileConditionFn) => void,
-  +promise: <+R>() => Promise<R>,
+  +promise: () => Promise<*>,
 |};
 
 type CallbackFn = (ref: CallbackRef, ...args: Array<*>) => mixed;
