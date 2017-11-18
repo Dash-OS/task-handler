@@ -74,6 +74,40 @@ For more examples you can check out the
 
 ---
 
+## Common Type Signatures
+
+Below are a few of the common type signatures describing the values which are
+used throughout the API for `task-handler`.
+
+```js
+type TaskID = string;
+
+type TaskCancelFunction = () => boolean;
+
+type TaskTypes =
+  | 'timeout'
+  | 'timeouts'
+  | 'intervals'
+  | 'interval'
+  | 'defer'
+  | 'defers';
+
+type TaskID = string;
+
+type TaskCancelFunction = () => boolean;
+
+type WhileConditionFn = (ref: CallbackRef, ...args: Array<*>) => boolean;
+
+type CallbackRef = {|
+  +task: TaskHandler,
+  +id: TaskID,
+  +cancel: TaskCancelFunction,
+  +while: (condition: WhileConditionFn) => void,
+|};
+
+type CallbackFn = (ref: CallbackRef, ...args: Array<*>) => mixed;
+```
+
 ## API Reference
 
 ### Module Exports
@@ -147,21 +181,4 @@ class TaskHandler {
   // given are present.
   has(...ids: Array<TaskID>): boolean
 }
-```
-
-### `TaskRef` (Object)
-
-```js
-type TaskID = string;
-
-type TaskCancelFunction = () => boolean;
-
-type WhileConditionFn = (ref: CallbackRef, ...args: Array<*>) => boolean;
-
-type CallbackRef = {|
-  +task: TaskHandler,
-  +id: TaskID,
-  +cancel: TaskCancelFunction,
-  +while: (condition: WhileConditionFn) => void,
-|};
 ```
