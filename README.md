@@ -74,6 +74,53 @@ For more examples you can check out the
 
 ---
 
+## Task Handler Concepts
+
+Below we will document some of the common patterns that can be deployed while
+using `Task Handler`.
+
+### While Condition
+
+A `While Condition` provides a mechanism for providing a condition that must be
+true for a given task to be executed. This can cleanup our code and make it
+easier to read.
+
+Consider the following:
+
+```js
+import createTaskHandler from 'task-handler';
+const task = createTaskHandler();
+
+const state = { handshaked: false };
+
+// check if our other code has set handshaked to true before the time is up
+task.after('handshake', HANDSHAKE_TIMEOUT_MS, () => {
+  if (!state.handshaked) {
+    disconnect(403, 'Failed to Authenticate: Handshake Failure');
+  }
+});
+```
+
+While this is a simple example and is not hard to read, it can be made more
+concise by separating the pieces with a `While Condition`.
+
+```js
+this.taskman
+  .after('handshake', HANDSHAKE_TIMEOUT_MS, () =>
+    disconnect(403, 'Failed to Authenticate: Handshake Failure'),
+  )
+  .while(() => !state.handshaked);
+```
+
+These can be especially helpful with `every` and `defer` timers. While also is
+grouped by reference, allowing a single while condition failing to cancel other
+timers automatically.
+
+For more examples check out the
+[while examples](https://github.com/Dash-OS/task-handler/tree/master/examples/while.js)
+
+---
+
 ## Common Type Signatures
 
 Below are a few of the common type signatures describing the values which are
