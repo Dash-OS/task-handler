@@ -103,6 +103,7 @@ type CallbackRef = {|
   +id: TaskID,
   +cancel: TaskCancelFunction,
   +while: (condition: WhileConditionFn) => void,
+  +promise: <+R>() => Promise<R>,
 |};
 
 type CallbackFn = (ref: CallbackRef, ...args: Array<*>) => mixed;
@@ -136,7 +137,7 @@ declare function createTaskHandler(id?: string): TaskHandler;
 
 ### `TaskHandler` (Class)
 
-Documentation coming soon...
+Further Documentation coming soon...
 
 ```js
 // public interface for TaskHandler
