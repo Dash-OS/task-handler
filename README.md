@@ -3,6 +3,10 @@
 A simple, dependency-free Task Manager to make handling of your Javascript
 Timers easier to work with.
 
+Combined with [pubchan](https://www.github.com/Dash-OS/pubchan), provides a
+lightweight and powerful toolkit for managing asynchronous coordination of your
+applications events.
+
 ## Install
 
 ```
