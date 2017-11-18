@@ -102,6 +102,53 @@ declare function createTaskHandler(id?: string): TaskHandler;
 
 ### `TaskHandler` (Class)
 
+Documentation coming soon...
+
+```js
+// public interface for TaskHandler
+class TaskHandler {
+  // how many scheduled tasks of any type do we have?
+  get size(): number
+
+  // create a timeout, cancelling any timeouts
+  // currently scheduled with the given id if any
+  after(
+    id: TaskID,
+    delay: number,
+    fn: CallbackFn,
+    ...args: Array<any>
+  ): CallbackRef
+
+  defer(id: TaskID, fn: CallbackFn, ...args: Array<any>): CallbackRef
+
+  every(
+    id: TaskID,
+    interval: number,
+    fn: CallbackFn,
+    ...args: Array<any>
+  ): CallbackRef
+
+  everyNow(
+    id: TaskID,
+    interval: number,
+    fn: CallbackFn,
+    ...args: Array<any>
+  ): CallbackRef
+
+  // cancel the given timeout (optionally provide a type if it should only
+  // be cancelled if its of the given type).
+  // returns true if a task was cancelled.
+  cancel(id: TaskID, type?: TaskTypes): boolean
+
+  // cancel all of a given type (or all if no argument provided)
+  clear(...types: Array<TaskTypes>): void
+
+  // are the given tasks currently scheduled? returns true if all tasks
+  // given are present.
+  has(...ids: Array<TaskID>): boolean
+}
+```
+
 ### `TaskRef` (Object)
 
 ```js
