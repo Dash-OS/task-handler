@@ -7,9 +7,9 @@ Combined with [pubchan](https://www.github.com/Dash-OS/pubchan), provides a
 lightweight and powerful toolkit for managing asynchronous coordination of your
 applications events.
 
-> **Note:** Tasks are currently a work in progress. However, the code itself is
-> at a stable level and used in production. This module has been lifted from our
-> private repositories and released to the public.
+> **Note:** Documentation is currently a work in progress. However, the code
+> itself is at a stable level and used in production. This module has been
+> lifted from our private repositories and released to the public.
 
 ## Install
 
