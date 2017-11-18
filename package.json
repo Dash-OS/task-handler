@@ -1,0 +1,53 @@
+{
+  "name": "task-handler",
+  "version": "1.0.0",
+  "description": "Handle Javascript Timers in a manageable way",
+  "main": "lib/index.js",
+  "author": "Braden R. Napier",
+  "license": "MIT",
+  "reveal": true,
+  "files": ["lib"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dash-OS/task-handler/"
+  },
+  "keywords": [
+    "tasks",
+    "setTimeout",
+    "setInterval",
+    "setImmediate",
+    "nextTick",
+    "timer",
+    "future",
+    "cron",
+    "schedule"
+  ],
+  "scripts": {
+    "flow": "flow",
+    "build":
+      "cross-env NODE_ENV=production rimraf lib registry && npm-run-all -p build:**",
+    "build:pubchan:babel": "babel src --out-dir lib",
+    "build:pubchan:flow": "flow-copy-source src lib",
+    "prepublish": "npm-run-all build"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-minify": "^0.2.0",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "^2.8.0",
+    "flow-bin": "^0.59.0",
+    "flow-copy-source": "^1.2.1",
+    "npm-run-all": "^4.1.2",
+    "pubchan": "^1.4.0",
+    "pubsub-js": "^1.5.7",
+    "rimraf": "^2.6.2"
+  }
+}

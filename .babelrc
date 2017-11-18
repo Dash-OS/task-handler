@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "flow",
+    [
+      "env",
+      {
+        "targets": {
+          "node": 8
+        }
+      }
+    ],
+    "minify"
+  ],
+  "plugins": ["transform-class-properties", "transform-object-rest-spread"]
+}
