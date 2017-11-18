@@ -40,35 +40,17 @@ import createTaskHandler from 'task-handler';
 
 const task = createTaskHandler('simple');
 
-task.after(
-  'task:one',
-  3000,
-  (ref, arg: string) => log('task:one execute', arg),
-  'foo',
-);
+// after timeout
+task.after('task:one', 3000, () => log('task:one execute'));
 
 // every interval, execute
-task.every(
-  'task:two',
-  3000,
-  (ref, arg: string) => log('task:two execute', arg),
-  'bar',
-);
+task.every('task:two', 3000, () => log('task:two execute'));
 
 // immediately execute (nextTick, immediate, timeout priority - first found)
-task.defer(
-  'task:four',
-  (ref, arg: string) => log('task:four execute', arg),
-  'qux',
-);
+task.defer('task:four', () => log('task:four execute'));
 
 // every interval and immediately, execute
-task.everyNow(
-  'task:three',
-  3000,
-  (ref, arg: string) => log('task:three execute', arg),
-  'baz',
-);
+task.everyNow('task:three', 3000, () => log('task:three execute'));
 
 // clear all tasks, killing the event queue and completing execution
 task.after('complete', 10000, () => {
