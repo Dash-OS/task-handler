@@ -7,6 +7,10 @@ Combined with [pubchan](https://www.github.com/Dash-OS/pubchan), provides a
 lightweight and powerful toolkit for managing asynchronous coordination of your
 applications events.
 
+> **Note:** Tasks are currently a work in progress. However, the code itself is
+> at a stable level and used in production. This module has been lifted from our
+> private repositories and released to the public.
+
 ## Install
 
 ```
@@ -53,7 +57,7 @@ task.every('task:two', 3000, () => log('task:two execute'));
 // immediately execute (nextTick, immediate, timeout priority - first found)
 task.defer('task:four', () => log('task:four execute'));
 
-// every interval and immediately, execute
+// every interval and immediately (defer), execute
 task.everyNow('task:three', 3000, () => log('task:three execute'));
 
 // clear all tasks, killing the event queue and completing execution
@@ -95,3 +99,22 @@ declare function createTaskHandler(id?: string): TaskHandler;
 ```
 
 ---
+
+### `TaskHandler` (Class)
+
+### `TaskRef` (Object)
+
+```js
+type TaskID = string;
+
+type TaskCancelFunction = () => boolean;
+
+type WhileConditionFn = (ref: CallbackRef, ...args: Array<*>) => boolean;
+
+type CallbackRef = {|
+  +task: TaskHandler,
+  +id: TaskID,
+  +cancel: TaskCancelFunction,
+  +while: (condition: WhileConditionFn) => void,
+|};
+```
