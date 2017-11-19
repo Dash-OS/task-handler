@@ -29,7 +29,7 @@ Proudly built with 100% Flow Coverage and exported .flow.js files so your flow
 projects will benefit!
 
 We strongly recommend you look over the
-[types](https://github.com/Dash-OS/pubchan/tree/master/src/index.js) in the
+[types](https://github.com/Dash-OS/task-handler/tree/master/src/index.js) in the
 source. This will give you an idea of how the various pieces of the package
 work.
 
@@ -105,9 +105,11 @@ While this is a simple example and is not hard to read, it can be made more
 concise by separating the pieces with a `While Condition`.
 
 ```js
-task.after('handshake', HANDSHAKE_TIMEOUT_MS, () =>
-  disconnect(403, 'Failed to Authenticate: Handshake Failure'),
-).while(() => !state.handshaked);
+task
+  .after('handshake', HANDSHAKE_TIMEOUT_MS, () =>
+    disconnect(403, 'Failed to Authenticate: Handshake Failure'),
+  )
+  .while(() => !state.handshaked);
 ```
 
 These can be especially helpful with `every` and `defer` timers. While also is
